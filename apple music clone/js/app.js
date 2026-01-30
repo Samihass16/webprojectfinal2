@@ -48,7 +48,6 @@ function navigate(page) {
     
     pageRenderers[page] ? pageRenderers[page]() : mainView.innerHTML = `<div class="p-5"><h1 class="fw-bold">${page.toUpperCase()}</h1></div>`;
 }
-
 function initNavigation() {
     const menuBtn = document.getElementById('menuBtn');
     const fullNav = document.getElementById('fullNav');
@@ -61,10 +60,27 @@ function initNavigation() {
         });
     }
     
-    // Sidebar navigation
-    ['side-home', 'side-new', 'side-radio', 'sideSearchBtn', 'nav-home', 'nav-new', 'nav-radio', 'nav-search'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('click', () => navigate(id.replace('side-', '').replace('nav-', '').replace('SearchBtn', 'search')));
+    // FIXED: Handle each navigation button separately with clear logic
+    const navigationMap = [
+        { id: 'side-home', page: 'home' },
+        { id: 'side-new', page: 'new' },
+        { id: 'side-radio', page: 'radio' },
+        { id: 'sideSearchBtn', page: 'search' }, // This was the problem!
+        { id: 'nav-home', page: 'home' },
+        { id: 'nav-new', page: 'new' },
+        { id: 'nav-radio', page: 'radio' },
+        { id: 'nav-search', page: 'search' }
+    ];
+    
+    navigationMap.forEach(item => {
+        const el = document.getElementById(item.id);
+        if (el) {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigate(item.page);
+            });
+        }
     });
 }
 
