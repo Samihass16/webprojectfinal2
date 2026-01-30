@@ -398,13 +398,27 @@ async function toggleFullPlayer(show) {
     if (!overlay) return;
     
     if (show) {
+        // First set display to block, then add active class
+        overlay.style.display = 'block';
+        // Small delay to ensure display is set before adding active class
+        setTimeout(() => {
+            overlay.classList.add('active');
+        }, 10);
+        
         await openFullPlayer();
-        overlay.classList.add('active');
     } else {
+        // Remove active class first
         overlay.classList.remove('active');
-        setTimeout(() => overlay.innerHTML = '', 300);
+        
+        // Hide overlay after transition completes
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            overlay.innerHTML = '';
+        }, 400); // Match this with CSS transition duration
     }
 }
+
+
 
 async function openFullPlayer() {
     const overlay = document.getElementById('fullPlayerOverlay');
@@ -421,14 +435,20 @@ async function openFullPlayer() {
             </div>
         `;
         
+         if (currentTrack) {
+        // ... existing overlay.innerHTML code ...
+        
         setTimeout(() => {
             const closeBtn = document.getElementById('closeFullPlayerBtn');
-            const queueBtn = document.getElementById('queueFromFullPlayerBtn');
-            if (closeBtn) closeBtn.addEventListener('click', () => toggleFullPlayer(false));
-            if (queueBtn) queueBtn.addEventListener('click', toggleQueue);
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    toggleFullPlayer(false);
+                });
+            }
+            // ... other event listeners ...
         }, 100);
-        return;
     }
+}
     
     const currentTrack = app.state.queue[app.state.currentTrackIndex];
     overlay.innerHTML = `
