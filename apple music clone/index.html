@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apple Music</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <!-- Desktop Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="brand mb-3 pb-2">
+                    <i class="bi bi-apple"></i><span>Music</span>
+                </div>
+                <div class="sidebar-nav">
+                    <div class="side-search-pill mb-4" id="sideSearchBtn">
+                        <i class="bi bi-search"></i><span>Search</span>
+                    </div>
+                    <button class="nav-item" id="side-home">
+                        <i class="bi bi-house-door-fill me-2"></i> Home
+                    </button>
+                    <button class="nav-item" id="side-new">
+                        <i class="bi bi-grid-fill me-2"></i> New
+                    </button>
+                    <button class="nav-item" id="side-radio">
+                        <i class="bi bi-broadcast me-2"></i> Radio
+                    </button>
+                </div>
+            </div>
+        </aside>
+        
+        <div class="main-wrapper">
+            <!-- Mini Player Bar -->
+            <div class="player-bar" id="masterPlayer">
+                <div class="player-inner">
+                    <div class="group group-controls">
+                        <button class="icon-btn-player" id="btn-shuffle"><i class="bi bi-shuffle"></i></button>
+                        <button class="icon-btn-player" id="btn-prev"><i class="bi bi-skip-backward-fill"></i></button>
+                        <button class="icon-btn-player play-pause" id="btn-play"><i class="bi bi-play-fill"></i></button>
+                        <button class="icon-btn-player" id="btn-next"><i class="bi bi-skip-forward-fill"></i></button>
+                        <button class="icon-btn-player" id="btn-repeat"><i class="bi bi-repeat"></i></button>
+                    </div>
+
+                    <div class="group group-info" id="clickable-info">
+                        <div class="album-wrap" id="playerArtWrapper"><img src="" alt="" id="api-mini-art" class="mini-art"></div>
+                        <div class="text-wrap">
+                            <div class="track-line">
+                                <span id="api-track-title">Not Playing</span> 
+                                <span id="api-explicit" class="badge-e d-none">E</span>
+                            </div>
+                            <div class="artist-line" id="api-artist-name">Apple Music</div>
+                            <div class="progress-bar-container">
+                                <input type="range" min="0" max="100" step="0.1" value="0" class="progress-bar-fill music-progress" id="api-progress-fill">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group group-actions">
+                        <div class="volume-container">
+                            <i class="bi bi-volume-up"></i>
+                            <input type="range" id="api-volume" min="0" max="100">
+                        </div>
+                        <button class="icon-btn-player" id="queueToggleBtn"><i class="bi bi-list-stars"></i></button>
+                        <button class="btn-signin-player"><i class="bi bi-person"></i>Sign In</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Header -->
+            <header class="app-header">
+                <div class="header-wrap">
+                    <button id="menuBtn" class="icon-btn"><i class="bi bi-list"></i></button>
+                    <div class="brand"><i class="bi bi-apple"></i><span>Music</span></div>
+                    <button class="sign-in-text">Sign In</button>
+                </div>
+            </header>
+
+            <!-- Mobile Navigation -->
+            <nav id="fullNav" class="full-nav-overlay">
+                <div class="nav-scroll-wrapper">
+                    <div class="nav-links">
+                        <button class="nav-item" id="nav-home">Home</button>
+                        <button class="nav-item" id="nav-new">New</button>
+                        <button class="nav-item" id="nav-radio">Radio</button>
+                        <button class="nav-item" id="nav-search">Search</button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main id="mainView" class="scroll-container">
+                <!-- Content loaded dynamically -->
+            </main>
+        </div>
+    </div>
+
+    <!-- Full Player Overlay (Lyrics View) -->
+    <div id="fullPlayerOverlay" class="overlay-container"></div>
+
+    <!-- Queue Sidebar -->
+    <aside id="queueSidebar" class="sidebar-right">
+        <div class="queue-header">
+            <h3>Queue</h3>
+            <button class="queue-close-btn" id="queueCloseBtn">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="queue-list" id="queueList">
+            <div class="text-center text-secondary py-5">Queue is empty</div>
+        </div>
+        <div class="queue-controls">
+            <button class="icon-btn-player" id="clearQueueBtn" title="Clear Queue">
+                <i class="bi bi-trash"></i>
+            </button>
+            <button class="icon-btn-player" id="shuffleQueueBtn" title="Shuffle">
+                <i class="bi bi-shuffle"></i>
+            </button>
+            <button class="icon-btn-player" id="repeatQueueBtn" title="Repeat">
+                <i class="bi bi-repeat"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3 class="video-modal-title" id="videoModalTitle">Video Player</h3>
+                <button class="video-modal-close" id="videoModalCloseBtn">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="video-modal-body">
+                <div class="video-player-container">
+                    <iframe id="dailymotionPlayer" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript files -->
+<!-- Load JavaScript files IN THE RIGHT ORDER -->
+<!-- <script src="js/state.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/api.js"></script>
+<... rest of scripts ... -->
+<!-- <script src="js/player.js"></script>
+<script src="js/queue.js"></script>
+<script src="js/fullPlayer.js"></script>
+<script src="js/pages/home.js"></script>
+<script src="js/pages/new.js"></script>
+<script src="js/pages/radio.js"></script>
+<script src="js/pages/search.js"></script>
+<script src="js/navigation.js"></script> --> 
+<!-- app.js should be LAST -->
+  <script src="js/player.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
