@@ -1,4 +1,4 @@
-// ========== APP INITIALIZATION =======
+// ========== APP INITIALIZATION ======
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Apple Music Clone initialized');
     initApp();
