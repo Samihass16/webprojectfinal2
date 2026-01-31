@@ -1,4 +1,4 @@
-// player.js - COMPLETE FIXED
+// player.js - COMPLETE FIXED VERSION
 
 // Global audio instance
 const audio = new Audio();
