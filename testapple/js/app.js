@@ -22,69 +22,7 @@ window.app = {
 };
 
 // ========== NAVIGATION ==========
-async function navigate(page, params = {}) {
-    const fullNav = document.getElementById('fullNav');
-    const menuBtn = document.getElementById('menuBtn');
-    
-    fullNav?.classList.remove('open');
-    if (menuBtn) menuBtn.innerHTML = '<i class="bi bi-list"></i>';
-    
-    // Update active navigation items
-    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll(`[id^="nav-${page}"], [id^="side-${page}"]`).forEach(el => el.classList.add('active'));
-    
-    // Store navigation state
-    window.app.navigation.currentPage = page;
-    
-    // Load the appropriate HTML file
-    const mainView = document.getElementById('mainView');
-    if (!mainView) return;
-    
-    try {
-        switch(page) {
-            case 'home':
-                const homeContent = await fetch('pages/home.html').then(r => r.text());
-                mainView.innerHTML = homeContent;
-                break;
-                
-            case 'new':
-                const newContent = await fetch('pages/new.html').then(r => r.text());
-                mainView.innerHTML = newContent;
-                loadNewPage();
-                break;
-                
-            case 'search':
-                const searchContent = await fetch('pages/search.html').then(r => r.text());
-                mainView.innerHTML = searchContent;
-                setupSearchPage();
-                break;
-                
-            case 'radio':
-                const radioContent = await fetch('pages/radio.html').then(r => r.text());
-                mainView.innerHTML = radioContent;
-                loadRadioPage();
-                break;
-                
-            case 'category':
-                const categoryContent = await fetch('pages/category-view.html').then(r => r.text());
-                mainView.innerHTML = categoryContent;
-                loadCategoryPage(params.label, params.term);
-                break;
-                
-            case 'search-results':
-                const searchResultsContent = await fetch('pages/search-results.html').then(r => r.text());
-                mainView.innerHTML = searchResultsContent;
-                loadSearchResults(params.query);
-                break;
-                
-            default:
-                mainView.innerHTML = `<div class="p-5"><h1 class="fw-bold">${page.toUpperCase()}</h1></div>`;
-        }
-    } catch (error) {
-        console.error('Error loading page:', error);
-        mainView.innerHTML = '<div class="p-5 text-danger">Error loading page</div>';
-    }
-}
+
 
 function initNavigation() {
     const menuBtn = document.getElementById('menuBtn');
@@ -462,4 +400,5 @@ window.initApp = initApp;
 window.radioData = radioData;
 
 // Initialize when DOM is ready
+
 document.addEventListener('DOMContentLoaded', initApp);
