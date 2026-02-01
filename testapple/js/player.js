@@ -66,7 +66,17 @@ function updatePlayButton(playing) {
 }
 
 // ========== PLAYER CONTROLS ==========
-
+function handlePlay() {
+    if (audio.paused) {
+        audio.play().catch(e => console.log("Playback error:", e));
+        playerState.isPlaying = true;
+        updatePlayButton(true);
+    } else {
+        audio.pause();
+        playerState.isPlaying = false;
+        updatePlayButton(false);
+    }
+}
 
 function handleShuffle() {
     const shuffleBtn = document.getElementById('btn-shuffle');
@@ -396,3 +406,4 @@ window.playerState = playerState;
 
 
 console.log('Player.js loaded');
+
