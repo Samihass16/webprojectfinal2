@@ -24,41 +24,11 @@ window.app = {
 // ========== NAVIGATION ==========
 
 
-function initNavigation() {
-    const menuBtn = document.getElementById('menuBtn');
-    const fullNav = document.getElementById('fullNav');
-    
-    if (menuBtn && fullNav) {
-        menuBtn.addEventListener('click', () => {
-            window.app.navigation.menuOpen = !window.app.navigation.menuOpen;
-            fullNav.classList.toggle('open');
-            menuBtn.innerHTML = window.app.navigation.menuOpen ? '<i class="bi bi-x"></i>' : '<i class="bi bi-list"></i>';
-        });
-    }
-    
-    // Navigation button setup
-    const navigationMap = [
-        { id: 'side-home', page: 'home' },
-        { id: 'side-new', page: 'new' },
-        { id: 'side-radio', page: 'radio' },
-        { id: 'sideSearchBtn', page: 'search' },
-        { id: 'nav-home', page: 'home' },
-        { id: 'nav-new', page: 'new' },
-        { id: 'nav-radio', page: 'radio' },
-        { id: 'nav-search', page: 'search' }
-    ];
-    
-    navigationMap.forEach(item => {
-        const el = document.getElementById(item.id);
-        if (el) {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                navigate(item.page);
-            });
-        }
-    });
-}
+
+
+/// intna
+
+
 
 // ========== PAGE SPECIFIC LOADERS ==========
 async function loadNewPage() {
@@ -402,3 +372,4 @@ window.radioData = radioData;
 // Initialize when DOM is ready
 
 document.addEventListener('DOMContentLoaded', initApp);
+
