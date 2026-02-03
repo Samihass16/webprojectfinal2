@@ -1,6 +1,6 @@
 :root {
     --apple-red: #fa233b;
-    --bg-black: #000;
+    --bg-black: #1f1f1f;
     --nav-bg: rgba(22, 22, 23, 0.98);
     --header-h: 48px;
     --gray-text: #8e8e93;
@@ -502,7 +502,7 @@ body {
         flex-direction: column;
         width: 260px;
         height: 100vh;
-        background: #161617;
+        background: #252526;
         border-right: 0.5px solid #333;
         flex-shrink: 0;
         padding: 15px;
@@ -1242,4 +1242,5 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
